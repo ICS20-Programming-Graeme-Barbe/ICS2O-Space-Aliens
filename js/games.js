@@ -12,19 +12,19 @@ const splashScene = new SplashScene()
 
 /*Game scene*/
 const config = {
-	type: Phaser.AUTO,
-	width: 1920,
-	height: 1080,
-	physics: {
+  type: Phaser.AUTO,
+  width: 1920,
+  height: 1080,
+  physics: {
     // Allows baisic arcade type games to work
-		default: 'arcade',
-		arcade: {
+    default: 'arcade',
+    arcade: {
       // Shows bounding boxes around objects
-			debug: true
-		}
-	},
+      debug: true
+    }
+  },
   // Sets background color
-	backgroundColor: 0x5f6e7a,
+  backgroundColor: 0x5f6e7a,
   // Makes the game allways fit 
   scale: {
     mode: Phaser.Scale.FIT,
