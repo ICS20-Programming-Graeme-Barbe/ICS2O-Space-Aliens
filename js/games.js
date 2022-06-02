@@ -26,8 +26,8 @@ const config = {
       debug: true,
     },
   },
-  // Sets background color to blue / grey
-  backgroundColor: 0x5f6e7a,
+  // Sets background color to white
+  backgroundColor: 0xffffff,
   // Makes the game allways fit 
   scale: {
     mode: Phaser.Scale.FIT,
