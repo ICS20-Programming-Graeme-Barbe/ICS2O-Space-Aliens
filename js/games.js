@@ -6,12 +6,12 @@
 // Phaser 3 config file
 
 //Imports scenes 
-import SplashScene from "./js/splashScene.js"
-import TitleScene from "./js/titleScene.js"
+import SplashScene from "./splashScene.js"
+import TitleScene from "./titleScene.js"
 
 // Create new scenes
-const splashScene = new SplashScene()
-const titleScene = new TitleScene()
+const splashScene = new SplashScene //()
+const titleScene = new TitleScene //()
 
 /* Start phaser game */
 const config = {
