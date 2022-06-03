@@ -6,8 +6,8 @@
 // Phaser 3 config file
 
 //Imports scenes 
-import SplashScene from "./splashSceen.js"
-import TitleScene from "./titleSceen.js"
+import SplashScene from "./js/splashScene.js"
+import TitleScene from "./js/titleScene.js"
 
 // Create new scenes
 const splashScene = new SplashScene()
