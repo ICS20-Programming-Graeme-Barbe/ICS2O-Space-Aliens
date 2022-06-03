@@ -19,7 +19,7 @@ const config = {
   width: 1920,
   height: 1080,
   physics: {
-    // Allows baisic arcade type games to work
+    // Allows basic arcade type games to work
     default: "arcade",
     arcade: {
       // Shows bounding boxes around objects
@@ -28,7 +28,7 @@ const config = {
   },
   // Sets background color to white
   backgroundColor: 0xffffff,
-  // Makes the game allways fit 
+  // Makes the game always fit 
   scale: {
     mode: Phaser.Scale.FIT,
     // Centers the game 
@@ -39,7 +39,7 @@ const config = {
 const game = new Phaser.Game(config)
 
 //Loads scenes
-//REMEBR KEYS ARE GLOBAL AND MUST DIFFRENT FOR THE WHOLE GAME
+//REMEMBER KEYS ARE GLOBAL AND MUST BE DIFFERENT FOR THE WHOLE GAME
 game.scene.add("splashScene", splashScene)
 game.scene.add("titleScene", titleScene)
 
