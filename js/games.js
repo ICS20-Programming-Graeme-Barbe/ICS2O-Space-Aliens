@@ -26,7 +26,7 @@ const config = {
       debug: true,
     },
   },
-  // Sets background color to white
+  // Sets background color to black
   backgroundColor: 0xffffff,
   // Makes the game always fit 
   scale: {
