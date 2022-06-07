@@ -10,6 +10,7 @@ class MenuScene extends Phaser.Scene {
   constructor () {
     super({ key: "menuScene" })
     this.menuSceneBackgroundImage = null
+    this.startButton = null;
   }
 
   //Sets up the base state of the scene
@@ -25,7 +26,7 @@ class MenuScene extends Phaser.Scene {
   }
 
   create (data) {
-    this.menuSceneBackgroundImage = this.add.sprite(0, 0, "menuSceneBackground").setScale(2.75)
+    this.menuSceneBackgroundImage = this.add.sprite(0, 0, "menuSceneBackgroundImage")
     this.menuSceneBackgroundImage.x = 1920 / 2
     this.menuSceneBackgroundImage.y = 1080 / 2
 
@@ -35,9 +36,11 @@ class MenuScene extends Phaser.Scene {
   }
 
   update (time, delta) {
-    clickButton () {
-      this.scene.start("gameScene")
-    }
+    
+  }
+
+  clickButton () {
+    this.scene.start("gameScene")
   }
 }
 
