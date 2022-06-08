@@ -10,7 +10,7 @@ class MenuScene extends Phaser.Scene {
   constructor () {
     super({ key: "menuScene" })
 
-    //Variabls to hold diifrent objects
+    //Variables to hold different objects
     this.menuSceneBackgroundImage = null
     this.startButton = null;
   }

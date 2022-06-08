@@ -10,6 +10,7 @@ class TitleScene extends Phaser.Scene {
   constructor () {
     super({ key: "titleScene" })
 
+    //Variables to hold different objects
     this.titleSceneBackgroundImage = null
 
     this.titleSceneText = null

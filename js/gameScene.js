@@ -10,7 +10,7 @@ class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: "gameScene" })
 
-    //Variabls to hold diifrent objects
+    //Variables to hold different objects
     this.background = null
     this.ship = null
     this.fireMissile = null
@@ -83,7 +83,7 @@ class GameScene extends Phaser.Scene {
       }
     }
 
-    //If statement to fire missile if space is pressed then unpressed 
+    //If statement to fire missile if space is pressed and unpressed 
     if (keySpaceObj.isDown === true) {
       if (this.fireMissile === false) {
         this.fireMissile = true
@@ -92,7 +92,7 @@ class GameScene extends Phaser.Scene {
       }
     }
 
-    //If statement to fire missile if space is pressed then unpressed 
+    //If statement to fire missile if space is pressed and unpressed 
     if (keySpaceObj.isUp === true) {
       this.fireMissile = false
     }
