@@ -28,6 +28,8 @@ class TitleScene extends Phaser.Scene {
   }
 
   create (data) {
+
+    //Displays title scene 
     this.titleSceneBackgroundImage = this.add.sprite(0, 0, "titleSceneBackground").setScale(2.75)
     this.titleSceneBackgroundImage.x = 1920 / 2
     this.titleSceneBackgroundImage.y = 1080 / 2
