@@ -76,7 +76,7 @@ class GameScene extends Phaser.Scene {
     if (keySpaceObj.isDown === true) {
       //if (this.fireMissile === false) {
         this.fireMissile = true
-        const aNewMissile = this.physics.add.sprite(this.ship.x + 70, this.ship.y - 15, "missile").setScale(0.8)
+        const aNewMissile = this.physics.add.sprite(this.ship.x + 70, this.ship.y + 10, "missile").setScale(0.8)
         this.missileGroup.add(aNewMissile)
       }
     //}
