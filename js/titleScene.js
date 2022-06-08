@@ -13,7 +13,7 @@ class TitleScene extends Phaser.Scene {
     this.titleSceneBackgroundImage = null
 
     this.titleSceneText = null
-    this.titleSceneTextStyle = { font: "200px Times", fill: "#fde4b9", align: "center" }
+    this.titleSceneTextStyle = { font: "125px Times", fill: "#900603", align: "center", }
   }
 
   //Sets up the base state of the scene
@@ -32,12 +32,12 @@ class TitleScene extends Phaser.Scene {
     this.titleSceneBackgroundImage.x = 1920 / 2
     this.titleSceneBackgroundImage.y = 1080 / 2
 
-    this.titleSceneText = this.add.text(1920 / 2, (1080 / 2) + 350, "Space Aliens", this.titleSceneTextStyle).setOrigin(0.5)
+    this.titleSceneText = this.add.text(1920 / 2, (1080 / 2) - 450, "Angry Birds in Space", this.titleSceneTextStyle).setOrigin(0.5)
   }
 
   update (time, delta) {
     //If statement to switch to title screen only if enough time has passed
-    if (time > 6000) {
+    if (time > 5000) {
       this.scene.switch("menuScene")
     }
   }
