@@ -10,6 +10,7 @@ class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: "gameScene" })
 
+    //Variabls to hold diifrent objects
     this.background = null
     this.ship = null
     this.fireMissile = null
@@ -24,27 +25,33 @@ class GameScene extends Phaser.Scene {
   preload () {
     console.log("Game Scene")
 
-    this.load.image("starBackground", "./assets/starBackground.png")
+    //Loads images for background, ship and missile 
+    this.load.image("starBackground", "./assets/playScreen.webp")
     this.load.image("ship", "./assets/angryBird.webp")
     this.load.image("missile", "./assets/missile.webp")
   }
 
   create (data) {
-    this.background = this.add.image(0, 0, "starBackground").setScale(2.0)
+    //Displays background 
+    this.background = this.add.image(0, 0, "starBackground").setScale(4)
     this.background.setOrigin(0, 0)
 
+    //Displays the ship
     this.ship = this.physics.add.sprite(100, 1080 - 100, "ship").setScale(0.6)
 
+    //Allows the missile to have physics 
     this.missileGroup = this.physics.add.group()
   }
 
   update (time, delta) {
+    //Const for key inputs
     const keyUpObj = this.input.keyboard.addKey("UP")
     const keyDownObj = this.input.keyboard.addKey("DOWN")
     const keyLeftObj = this.input.keyboard.addKey("LEFT")
     const keyRightObj = this.input.keyboard.addKey("RIGHT")
     const keySpaceObj = this.input.keyboard.addKey("SPACE")
 
+    //If statement to move the ship up if up arrow is down
     if (keyUpObj.isDown === true) {
       this.ship.y -= 15
       if (this.ship.y < 0) {
@@ -52,6 +59,7 @@ class GameScene extends Phaser.Scene {
       }
     }
 
+    //If statement to move the ship down if down arrow is down
     if (keyDownObj.isDown === true) {
       this.ship.y += 15
       if (this.ship.y > 1080) {
@@ -59,6 +67,7 @@ class GameScene extends Phaser.Scene {
       }
     }
 
+    //If statement to move the ship left if left arrow is down
     if (keyLeftObj.isDown === true) {
       this.ship.x -= 15
       if (this.ship.x < 50) {
@@ -66,6 +75,7 @@ class GameScene extends Phaser.Scene {
       }
     }
 
+    //If statement to move the ship right if right arrow is down
     if (keyRightObj.isDown === true) {
       this.ship.x += 15
       if (this.ship.x > 600) {
@@ -73,14 +83,16 @@ class GameScene extends Phaser.Scene {
       }
     }
 
+    //If statement to fire missile if space is pressed then unpressed 
     if (keySpaceObj.isDown === true) {
-      //if (this.fireMissile === false) {
+      if (this.fireMissile === false) {
         this.fireMissile = true
         const aNewMissile = this.physics.add.sprite(this.ship.x + 70, this.ship.y + 10, "missile").setScale(0.8)
         this.missileGroup.add(aNewMissile)
       }
-    //}
+    }
 
+    //If statement to fire missile if space is pressed then unpressed 
     if (keySpaceObj.isUp === true) {
       this.fireMissile = false
     }

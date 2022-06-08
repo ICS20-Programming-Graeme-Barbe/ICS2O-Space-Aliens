@@ -49,5 +49,5 @@ game.scene.add("titleScene", titleScene)
 game.scene.add("menuScene", menuScene)
 game.scene.add("gameScene", gameScene)
 
-//Title scene
+//Scene program starts with
 game.scene.start("splashScene")
