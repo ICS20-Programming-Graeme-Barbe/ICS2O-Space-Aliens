@@ -8,10 +8,10 @@
 class GameScene extends Phaser.Scene {
 //Creates an Alien
   createAlien() {
-    const alienYLocation = Math.floor(Math.random() * 1920) + 1
+    const alienYLocation = Math.floor(Math.random() * 1080) + 1
     let alienYVelocity = Math.floor(Math.random() * 50) + 100
     alienYVelocity *= Math.round(Math.random()) ? 1 : -1
-    const anAlien = this.physics.add.sprite(1080, alienYLocation, "alien").setScale(1)
+    const anAlien = this.physics.add.sprite(1920, alienYLocation, "alien").setScale(1)
     anAlien.body.velocity.x = -200
     anAlien.body.velocity.y = alienYVelocity
     this.alienGroup.add(anAlien)
@@ -110,6 +110,14 @@ class GameScene extends Phaser.Scene {
       if (this.ship.x > 600) {
         this.ship.x = 600
       }
+    }
+
+    if (this.anAlien.y < 0) {
+      this.anAlien.y = 0
+    }
+
+    if (this.anAlien.y > 1080) {
+      this.anAlien.y = 1080
     }
 
     //If statement to fire missile if space is pressed and unpressed 
