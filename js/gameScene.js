@@ -8,12 +8,12 @@
 class GameScene extends Phaser.Scene {
 //Creates an Alien
   createAlien() {
-    const alienXLocation = Math.floor(Math.random() * 1920) + 1
-    let alienXVelocity = Math.floor(Math.random() * 50) + 1
-    alienXVelocity *= Math.round(Math.random()) ? 1 : -1
-    const anAlien = this.physics.add.sprite(alienXLocation, -100, "alien").setScale(0.02)
-    anAlien.body.velocity.y = 200
-    anAlien.body.velocity.x = alienXVelocity
+    const alienYLocation = Math.floor(Math.random() * 1080) + 1
+    let alienYVelocity = Math.floor(Math.random() * 50) + 1
+    alienYVelocity *= Math.round(Math.random()) ? 1 : -1
+    const anAlien = this.physics.add.sprite(alienYLocation, 1080, "alien").setScale(1)
+    anAlien.body.velocity.x = -200
+    anAlien.body.velocity.y = alienYVelocity
     this.alienGroup.add(anAlien)
   }
   
