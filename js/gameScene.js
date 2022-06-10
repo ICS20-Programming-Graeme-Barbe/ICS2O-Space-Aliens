@@ -12,8 +12,12 @@ class GameScene extends Phaser.Scene {
     let alienYVelocity = Math.floor(Math.random() * 50) + 100
     alienYVelocity *= Math.round(Math.random()) ? 1 : -1
     const anAlien = this.physics.add.sprite(1920, alienYLocation, "alien").setScale(1)
-    anAlien.body.velocity.x = -200
+    anAlien.body.velocity.x = -150
     anAlien.body.velocity.y = alienYVelocity
+    let randNumb = Math.floor(Math.random() * 20) + 1
+    if (randNumb > 15) {
+      anAlien.body.velocity.y = 0
+    }
     this.alienGroup.add(anAlien)
   }
   
@@ -25,6 +29,10 @@ class GameScene extends Phaser.Scene {
     this.background = null
     this.ship = null
     this.fireMissile = null
+    this.score = 0
+    this.scoreText = null
+    this.scoreTextStyle = { font: "50px Arial", fill: "#ffffff", align: "center" }
+    this.gameOverTextStyle = { font: "50px Arial", fill: "#ff0000", align: "center" }
   }
 
   //Sets up the base state of the scene
@@ -45,12 +53,16 @@ class GameScene extends Phaser.Scene {
     //Loads sounds
     this.load.audio("laser", "./assets/laser1.wav")
     this.load.audio("explosion", "assets/barrelExploding.wav")
+    this.load.audio("bomb", "./assets/barrelExploding.wav")
   }
 
   create (data) {
     //Displays background 
     this.background = this.add.image(0, 0, "starBackground").setScale(2)
     this.background.setOrigin(0, 0)
+
+    //Displays score
+    this.scoreText = this.add.text(10, 10, "Score: " + this.score.toString(), this.scoreTextStyle)
 
     //Displays the ship
     this.ship = this.physics.add.sprite(100, 1080 - 100, "ship").setScale(0.6)
@@ -67,8 +79,21 @@ class GameScene extends Phaser.Scene {
       alienCollide.destroy()
       missileCollide.destroy()
       this.sound.play("explosion")
+      this.score = this.score + 1
+      this.scoreText.setText( "Score: " + this.score.toString())
       this.createAlien()
       this.createAlien()
+    }.bind(this))
+
+    this.physics.add.collider(this.ship, this.alienGroup, function(shipCollide, alienCollide) {
+      this.sound.play("bomb")
+      this.physics.pause()
+      alienCollide.destroy()
+      shipCollide.destroy()
+      this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! \nClick to play again", this.gameOverTextStyle).setOrigin(0.5)
+      this.gameOverText.setInteractive({ useHandCursor: true})
+      this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
+      this.score = 0
     }.bind(this))
   }
 
@@ -112,22 +137,14 @@ class GameScene extends Phaser.Scene {
       }
     }
 
-    if (this.anAlien.y < 0) {
-      this.anAlien.y = 0
-    }
-
-    if (this.anAlien.y > 1080) {
-      this.anAlien.y = 1080
-    }
-
     //If statement to fire missile if space is pressed and unpressed 
     if (keySpaceObj.isDown === true) {
-      //if (this.fireMissile === false) {
+      if (this.fireMissile === false) {
         this.fireMissile = true
         const aNewMissile = this.physics.add.sprite(this.ship.x + 70, this.ship.y + 10, "missile").setScale(0.8)
         this.missileGroup.add(aNewMissile)
         this.sound.play("laser")
-      //}
+      }
     }
 
     //If statement to fire missile if space is pressed and unpressed 
