@@ -24,9 +24,10 @@ class MenuScene extends Phaser.Scene {
   preload () {
     console.log("Menu Scene")
 
-    //Loads images for background and button
+    //Loads images for background and buttons
     this.load.image("menuSceneBackgroundImage", "./assets/background.jpg")
     this.load.image('startButton', "./assets/button.png")
+    this.load.image("instructionButton", "./assets/instructions.png")
   }
 
   create (data) {
@@ -37,10 +38,14 @@ class MenuScene extends Phaser.Scene {
 
     //Displays button
     this.startButton = this.add.sprite((1920 / 2) + 700, (1820 / 2) + 25, "startButton").setScale(0.6)
+    this.instructionButton = this.add.sprite(375, 950, "instructionButton").setScale(0.7)
 
     //Allows button to be used when pressed 
     this.startButton.setInteractive({ useHandCursor: true })
     this.startButton.on("pointerdown", () => this.clickButton() )
+    
+    this.instructionButton.setInteractive({ useHandCursor: true })
+    this.instructionButton.on("pointerdown", () => this.instructionsButton() )
   }
 
   update (time, delta) {
@@ -50,6 +55,11 @@ class MenuScene extends Phaser.Scene {
   clickButton () {
     this.scene.start("gameScene")
   }
+
+  instructionsButton () {
+    this.scene.start("instructionScene")
+  }
+  
 }
 
 export default MenuScene

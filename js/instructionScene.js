@@ -9,6 +9,8 @@ class InstructionScene extends Phaser.Scene {
   //Creates a new object that get called with the key "instructionScene"
   constructor () {
     super({ key: "instructionScene" })
+
+    this.instructionSceneBackgroundImage = null
   }
 
   //Sets up the base state of the scene
@@ -19,6 +21,14 @@ class InstructionScene extends Phaser.Scene {
   //Loads data before processing / displaying it to the user
   preload () {
     console.log("Instruction Scene")
+
+     //Loads images for background and button
+    this.load.image("instructionSceneBackgroundImage", "./assets/instructionScene.jpg")
+
+    //Displays background 
+    this.instructionSceneBackgroundImage = this.add.sprite(0, 0, "instructionSceneBackgroundImage").setScale(1.5)
+    this.instructionSceneBackgroundImage.x = 1920 / 2
+    this.instructionSceneBackgroundImage.y = 1080 / 2
   }
 
   create (data) {

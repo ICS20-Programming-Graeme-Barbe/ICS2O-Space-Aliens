@@ -10,12 +10,14 @@ import SplashScene from "./splashScene.js"
 import TitleScene from "./titleScene.js"
 import MenuScene from "./menuScene.js"
 import GameScene from "./gameScene.js"
+import InstructionScene from "./instructionScene.js"
 
 // Create new scenes
 const splashScene = new SplashScene //()
 const titleScene = new TitleScene //()
 const menuScene = new MenuScene //()
 const gameScene = new GameScene //()
+const instructionScene = new InstructionScene //()
 
 /* Start phaser game */
 const config = {
@@ -27,7 +29,7 @@ const config = {
     default: "arcade",
     arcade: {
       // Shows bounding boxes around objects
-      debug: true,
+      debug: false,
     },
   },
   // Sets background color to black
@@ -48,6 +50,7 @@ game.scene.add("splashScene", splashScene)
 game.scene.add("titleScene", titleScene)
 game.scene.add("menuScene", menuScene)
 game.scene.add("gameScene", gameScene)
+game.scene.add("instructionScene", instructionScene)
 
 //Scene program starts with
 game.scene.start("splashScene")
