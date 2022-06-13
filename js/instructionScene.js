@@ -14,7 +14,7 @@ class InstructionScene extends Phaser.Scene {
     this.BackButton = null
     
     
-    this.instructionSceneTextStyle = { font: '40px Verdana', backgroundColor: '#C4A484', fontStyle: 'bold', fill: '#0047AB', align: 'center' }
+    this.instructionSceneTextStyle = { font: '27px Courier', fill: "#ffffff", align: 'center' }
     
   }
 
@@ -25,24 +25,21 @@ class InstructionScene extends Phaser.Scene {
   preload () {
    
     console.log('Instruction Scene')
-   
     this.load.image('instructionSceneBackground', './assets/instructionScene.jpg')
- 
     this.load.image('BackButton', './assets/BackButton.png')
   }
   
   create (data) {
    
-    this.instructionSceneBackgroundImage = this.add.sprite(0, 0, 'instructionSceneBackground').setScale(0.8)
+    this.instructionSceneBackgroundImage = this.add.sprite(0, 0, 'instructionSceneBackground').setScale(1)
    
     this.instructionSceneBackgroundImage.x = 1920 / 2
     this.instructionSceneBackgroundImage.y = 1080 / 2
   
-    this.instructionSceneTitleText = this.add.text(1920 / 2, 1080 / 2 + -170, 'Instructions', this.instructionSceneTitleTextStyle).setOrigin(0.5)
   
-    this.instructionSceneBodyText = this.add.text(1920 / 2, 1080 / 2 + 60, 'Welcome to Angry Birds n Space!\nThis game is like space invaders, but angry bird themed.\nShoot the incoming aliens before they collide with you, ending your game./nUse the arow keys to move and the space bar to shoot/nGood luck!', this.instructionSceneBodyTextStyle).setOrigin(0.5)
+    this.instructionSceneBodyText = this.add.text(1350, 400, 'Welcome to Angry Birds in Space!\nThis game is like space invaders, but angry bird themed\nShoot the incoming aliens before they collide with you\nUse the arow keys to move and the space bar to shoot\nGood luck!', this.instructionSceneTextStyle).setOrigin(0.5)
     // create back button
-    this.BackButton = this.add.sprite(350, (1080 / 6) + 1, 'BackButton').setScale(0.37)
+    this.BackButton = this.add.sprite(150, 150, 'BackButton').setScale(0.6)
     // execute clickButtonBack function on button clicked
     this.BackButton.setInteractive({ useHandCursor: true })
     this.BackButton.on('pointerdown', () => this.clickButtonBack())
