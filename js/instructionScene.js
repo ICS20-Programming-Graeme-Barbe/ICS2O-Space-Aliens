@@ -23,10 +23,10 @@ class InstructionScene extends Phaser.Scene {
     console.log("Instruction Scene")
 
      //Loads images for background and button
-    this.load.image("instructionSceneBackgroundImage", "./assets/instructionScene.jpg")
+    this.load.image("instructionSceneBackground", "./assets/instructionScene.jpg")
 
     //Displays background 
-    this.instructionSceneBackgroundImage = this.add.sprite(0, 0, "instructionSceneBackgroundImage").setScale(1.5)
+    this.instructionSceneBackgroundImage = this.add.sprite(0, 0, "instructionSceneBackground")
     this.instructionSceneBackgroundImage.x = 1920 / 2
     this.instructionSceneBackgroundImage.y = 1080 / 2
   }
