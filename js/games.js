@@ -29,7 +29,7 @@ const config = {
     default: "arcade",
     arcade: {
       // Shows bounding boxes around objects
-      debug: false,
+      debug: true,
     },
   },
   // Sets background color to black

@@ -12,7 +12,7 @@ class GameScene extends Phaser.Scene {
     let alienYVelocity = Math.floor(Math.random() * 50) + 100
     alienYVelocity *= Math.round(Math.random()) ? 1 : -1
     const anAlien = this.physics.add.sprite(1920, alienYLocation, "alien").setScale(1)
-    anAlien.body.velocity.x = -150
+    anAlien.body.velocity.x = -1500
     anAlien.body.velocity.y = alienYVelocity
     let randNumb = Math.floor(Math.random() * 20) + 1
     if (randNumb > 15) {
@@ -46,7 +46,7 @@ class GameScene extends Phaser.Scene {
 
     //Loads images for background, ship and missile 
     this.load.image("starBackground", "./assets/space.jpg")
-    this.load.image("ship", "./assets/angryBird.webp")
+    this.load.image("ship", "./assets/angryBird.png")
     this.load.image("missile", "./assets/missile.webp")
     this.load.image("alien", "./assets/pig.png")
 
@@ -133,7 +133,7 @@ class GameScene extends Phaser.Scene {
     if (keyRightObj.isDown === true) {
       this.ship.x += 15
       if (this.ship.x > 600) {
-        this.ship.x = 600
+        this.ship.x = 600 
       }
     }
 
