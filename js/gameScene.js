@@ -21,10 +21,10 @@ class GameScene extends Phaser.Scene {
     this.alienGroup.add(anAlien)
   }
 
-  highScore() {
-    let highScore = 0
-    this.highScoreText = this.add.text(200, 10, "High score: " + this.highScore, this.highScoreTextStyle)
-  }
+  // highScore() {
+  //   let highScore = 0
+  //   this.highScoreText = this.add.text(200, 10, "High score: " + this.highScore, this.highScoreTextStyle)
+  // }
   
   //Creates a new object that get called with the key "gameScene"
   constructor () {
