@@ -37,7 +37,7 @@ class InstructionScene extends Phaser.Scene {
     this.instructionSceneBackgroundImage.y = 1080 / 2
   
   
-    this.instructionSceneBodyText = this.add.text(1350, 400, 'Welcome to Angry Birds in Space!\nThis game is like space invaders, but angry bird themed\nShoot the incoming aliens before they collide with you\nUse the arow keys to move and the space bar to shoot\nGood luck!', this.instructionSceneTextStyle).setOrigin(0.5)
+    this.instructionSceneBodyText = this.add.text(1350, 400, 'Welcome to Angry Birds in Space!\nThis game is like space invaders, but angry bird themed\nShoot the incoming aliens before they collide with you\nGet a score of 45 the beat the game\nUse the arow keys to move and the space bar to shoot\nGood luck!', this.instructionSceneTextStyle).setOrigin(0.5)
     // create back button
     this.BackButton = this.add.sprite(150, 150, 'BackButton').setScale(0.6)
     // execute clickButtonBack function on button clicked

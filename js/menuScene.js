@@ -38,7 +38,7 @@ class MenuScene extends Phaser.Scene {
 
     //Displays button
     this.startButton = this.add.sprite((1920 / 2) + 700, (1820 / 2) + 25, "startButton").setScale(0.6)
-   this.instructionButton = this.add.sprite(375, 950, "instructionButton").setScale(0.7)
+    this.instructionButton = this.add.sprite(375, 950, "instructionButton").setScale(0.7)
 
     //Allows button to be used when pressed 
     this.startButton.setInteractive({ useHandCursor: true })

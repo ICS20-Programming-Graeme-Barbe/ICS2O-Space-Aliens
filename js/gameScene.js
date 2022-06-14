@@ -20,11 +20,6 @@ class GameScene extends Phaser.Scene {
     }
     this.alienGroup.add(anAlien)
   }
-
-  // highScore() {
-  //   let highScore = 0
-  //   this.highScoreText = this.add.text(200, 10, "High score: " + this.highScore, this.highScoreTextStyle)
-  // }
   
   //Creates a new object that get called with the key "gameScene"
   constructor () {
@@ -34,13 +29,12 @@ class GameScene extends Phaser.Scene {
     this.background = null
     this.ship = null
     this.fireMissile = null
+    this.homeButton = null
     this.score = 0
     this.scoreText = null
-    //this.highscore = 0
-    //this.highScoreText = null
     this.scoreTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
     this.gameOverTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
-    //this.highScoreTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
+    this.winTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
   }
 
   //Sets up the base state of the scene
@@ -57,6 +51,7 @@ class GameScene extends Phaser.Scene {
     this.load.image("ship", "./assets/angryBird.png")
     this.load.image("missile", "./assets/missile.webp")
     this.load.image("alien", "./assets/pig.png")
+    this.load.image("homeButton", "./assets/homeButton.png")
 
     //Loads sounds
     this.load.audio("laser", "./assets/laser1.wav")
@@ -68,16 +63,19 @@ class GameScene extends Phaser.Scene {
     //Displays background 
     this.background = this.add.image(0, 0, "starBackground").setScale(2)
     this.background.setOrigin(0, 0)
-
-    // create highscore
-    //this.highscore = this.
     
     //Displays score
     this.scoreText = this.add.text(10, 10, "Score: " + this.score.toString(), this.scoreTextStyle)
-    //this.highScoreText = this.add.text(200, 10, "High score: " + this.highScore, this.highScoreTextStyle)
 
     //Displays the ship
     this.ship = this.physics.add.sprite(100, 1080 - 100, "ship").setScale(0.6)
+
+    //Displays home button
+    this.homeButton = this.add.sprite(400, 20, "homeButton").setScale(0.09)
+
+    //Allows home button to be used 
+    this.homeButton.setInteractive({ useHandCursor: true })
+    this.homeButton.on("pointerdown", () => this.clickButton() )
 
     //Allows the missile to have physics 
     this.missileGroup = this.physics.add.group()
@@ -95,8 +93,17 @@ class GameScene extends Phaser.Scene {
       this.scoreText.setText( "Score: " + this.score.toString())
       this.createAlien()
       this.createAlien()
+      if (this.score > 45) {
+        this.winText = this.add.text(1920 / 2, 1080 / 2, "You Win! Congratulations\nClick to play again", this.winTextStyle).setOrigin(0.5)
+        this.winText.setInteractive({ useHandCursor: true })
+        this.winText.on("pointerdown", () => this.scene.start("gameScene"))
+        this.physics.pause()
+        this.ship.destroy()
+        this.score = 0
+      }
     }.bind(this))
 
+    //Collision between alien and the ship
     this.physics.add.collider(this.ship, this.alienGroup, function(shipCollide, alienCollide) {
       this.sound.play("bomb")
       this.physics.pause()
@@ -105,7 +112,6 @@ class GameScene extends Phaser.Scene {
       this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! \nClick to play again", this.gameOverTextStyle).setOrigin(0.5)
       this.gameOverText.setInteractive({ useHandCursor: true})
       this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
-      //this.highScore()
       this.score = 0
     }.bind(this))
   }
@@ -171,6 +177,11 @@ class GameScene extends Phaser.Scene {
       if (item.x > 1920)
         item.destroy()
     })
+
+  }
+
+  clickButton () {
+    this.scene.start('menuScene')
   }
 }
 
