@@ -11,8 +11,8 @@ class GameScene extends Phaser.Scene {
     const alienYLocation = Math.floor(Math.random() * 1080) + 1
     let alienYVelocity = Math.floor(Math.random() * 50) + 100
     alienYVelocity *= Math.round(Math.random()) ? 1 : -1
-    const anAlien = this.physics.add.sprite(1920, alienYLocation, "alien").setScale(1)
-    anAlien.body.velocity.x = -150
+    const anAlien = this.physics.add.sprite(1920, alienYLocation, "alien")
+    anAlien.body.velocity.x = -250
     anAlien.body.velocity.y = alienYVelocity
     let randNumb = Math.floor(Math.random() * 20) + 1
     if (randNumb > 15) {
@@ -71,7 +71,7 @@ class GameScene extends Phaser.Scene {
     this.ship = this.physics.add.sprite(100, 1080 - 100, "ship").setScale(0.6)
 
     //Displays home button
-    this.homeButton = this.add.sprite(400, 20, "homeButton").setScale(0.09)
+    this.homeButton = this.add.sprite(400, 20, "homeButton").setScale(0.1)
 
     //Allows home button to be used 
     this.homeButton.setInteractive({ useHandCursor: true })
@@ -176,8 +176,22 @@ class GameScene extends Phaser.Scene {
       item.x = item.x + 15
       if (item.x > 1920)
         item.destroy()
-    })
+    })    
 
+    this.alienGroup.children.each(function (item1) {
+      if ((item1.x < 0) || (item1.y < 0)) {
+        item1.x = 2000
+        let alienYCoord = Math.floor(Math.random() * 1080) + 1
+        item1.y = alienYCoord
+
+        
+        let alienYSpeed = Math.floor(Math.random() * 50) + 100
+        alienYSpeed *= Math.round(Math.random()) ? 1 : -1
+        item1.body.velocity.x = -250
+        item1.body.velocity.y = alienYSpeed
+        
+      }
+    })
   }
 
   clickButton () {
