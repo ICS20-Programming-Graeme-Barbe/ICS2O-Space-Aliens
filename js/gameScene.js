@@ -71,7 +71,7 @@ class GameScene extends Phaser.Scene {
     this.ship = this.physics.add.sprite(100, 1080 - 100, "ship").setScale(0.6)
 
     //Displays home button
-    this.homeButton = this.add.sprite(400, 20, "homeButton").setScale(0.1)
+    this.homeButton = this.add.sprite(1800, 70, "homeButton").setScale(0.3)
 
     //Allows home button to be used 
     this.homeButton.setInteractive({ useHandCursor: true })
@@ -198,6 +198,7 @@ class GameScene extends Phaser.Scene {
   }
 
   clickButton () {
+    this.score = 0
     this.scene.start('menuScene')
   }
 }
