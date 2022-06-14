@@ -179,7 +179,7 @@ class GameScene extends Phaser.Scene {
     })    
 
     this.alienGroup.children.each(function (item1) {
-      if ((item1.x < 0) || (item1.y < 0)) {
+      if ((item1.x < 0) || (item1.y < 0) || (item1.y > 1080)) {
         item1.x = 2000
         let alienYCoord = Math.floor(Math.random() * 1080) + 1
         item1.y = alienYCoord
@@ -189,7 +189,10 @@ class GameScene extends Phaser.Scene {
         alienYSpeed *= Math.round(Math.random()) ? 1 : -1
         item1.body.velocity.x = -250
         item1.body.velocity.y = alienYSpeed
-        
+        let randNumb = Math.floor(Math.random() * 20) + 1
+        if (randNumb > 15) {
+          item1.body.velocity.y = 0
+        }
       }
     })
   }
