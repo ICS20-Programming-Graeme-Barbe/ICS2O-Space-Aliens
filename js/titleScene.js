@@ -25,7 +25,7 @@ class TitleScene extends Phaser.Scene {
   //Loads data before processing / displaying it to the user
   preload () {
     console.log("Title Scene")
-    this.load.image("titleSceneBackground", "./assets/titleScene.jpg")
+    this.load.image("titleSceneBackground", "./images/titleScene.jpg")
   }
 
   create (data) {

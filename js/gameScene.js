@@ -47,19 +47,24 @@ class GameScene extends Phaser.Scene {
     console.log("Game Scene")
 
     //Loads images for background, ship and missile 
-    this.load.image("starBackground", "./assets/space.jpg")
-    this.load.image("ship", "./assets/angryBird.png")
-    this.load.image("missile", "./assets/missile.webp")
-    this.load.image("alien", "./assets/pig.png")
-    this.load.image("homeButton", "./assets/homeButton.png")
+    this.load.image("starBackground", "./images/space.jpg")
+    this.load.image("ship", "./images/angryBird.png")
+    this.load.image("missile", "./images/missile.webp")
+    this.load.image("alien", "./images/pig.png")
+    this.load.image("homeButton", "./images/homeButton.png")
 
     //Loads sounds
-    this.load.audio("laser", "./assets/laser1.wav")
-    this.load.audio("explosion", "assets/barrelExploding.wav")
-    this.load.audio("bomb", "./assets/barrelExploding.wav")
+    this.load.audio("laser", "./sounds/laser1.wav")
+    this.load.audio("explosion", "./sounds/barrelExploding.wav")
+    this.load.audio("bomb", "./sounds/bomb.wav")
+    this.load.audio("gameSceneMusic", "./sounds/gameSceneMusic.mp3")
   }
 
   create (data) {
+    //https://pixabay.com/music/search/genre/video%20games/
+    var audio = new Audio("./sounds/gameSceneMusic.mp3")
+    audio.play()
+    audio.loop = true
     //Displays background 
     this.background = this.add.image(0, 0, "starBackground").setScale(2)
     this.background.setOrigin(0, 0)
@@ -113,6 +118,7 @@ class GameScene extends Phaser.Scene {
       this.gameOverText.setInteractive({ useHandCursor: true})
       this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
       this.score = 0
+      audio.pause()
     }.bind(this))
   }
 

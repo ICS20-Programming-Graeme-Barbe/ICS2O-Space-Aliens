@@ -25,9 +25,9 @@ class MenuScene extends Phaser.Scene {
     console.log("Menu Scene")
 
     //Loads images for background and buttons
-    this.load.image("menuSceneBackgroundImage", "./assets/background.jpg")
-    this.load.image('startButton', "./assets/button.png")
-    this.load.image("instructionButton", "./assets/instructions.png")
+    this.load.image("menuSceneBackgroundImage", "./images/background.jpg")
+    this.load.image('startButton', "./images/button.png")
+    this.load.image("instructionButton", "./images/instructions.png")
   }
 
   create (data) {
@@ -51,6 +51,7 @@ class MenuScene extends Phaser.Scene {
   update (time, delta) {
     
   }
+  
  //Function to change to next scene when button is pressed 
   clickButton () {
     this.scene.start("gameScene")
