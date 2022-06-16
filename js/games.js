@@ -12,7 +12,7 @@ import MenuScene from "./menuScene.js"
 import GameScene from "./gameScene.js"
 import InstructionScene from "./instructionScene.js"
 
-// Create new scenes
+//Create new scenes
 const splashScene = new SplashScene //()
 const titleScene = new TitleScene //()
 const menuScene = new MenuScene //()
@@ -29,7 +29,7 @@ const config = {
     default: "arcade",
     arcade: {
       // Shows bounding boxes around objects
-      debug: true,
+      debug: false,
     },
   },
   // Sets background color to black

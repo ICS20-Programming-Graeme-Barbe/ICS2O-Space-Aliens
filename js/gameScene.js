@@ -6,18 +6,27 @@
 // This is the Game Scene
 
 class GameScene extends Phaser.Scene {
+  
 //Creates an Alien
   createAlien() {
+
+    //Randomly generates alien y location 
     const alienYLocation = Math.floor(Math.random() * 1080) + 1
+
+    //Randomly generates alien y volocity
     let alienYVelocity = Math.floor(Math.random() * 50) + 100
     alienYVelocity *= Math.round(Math.random()) ? 1 : -1
     const anAlien = this.physics.add.sprite(1920, alienYLocation, "alien")
     anAlien.body.velocity.x = -250
     anAlien.body.velocity.y = alienYVelocity
+    
+    //Randomly sets alien body velocity to 0
     let randNumb = Math.floor(Math.random() * 20) + 1
     if (randNumb > 15) {
       anAlien.body.velocity.y = 0
     }
+
+    //Makes every alien spawned part of the alien group 
     this.alienGroup.add(anAlien)
   }
   
@@ -25,31 +34,39 @@ class GameScene extends Phaser.Scene {
   constructor () {
     super({ key: "gameScene" })
 
-    //Variables to hold different objects
+    //Variables to hold images
     this.background = null
     this.ship = null
     this.fireMissile = null
     this.homeButton = null
-    this.score = 0
-    this.lives = 3
-    this.livesText = ""
+
+    //Variables to hold text and text style
     this.scoreText = null
     this.scoreTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
     this.gameOverTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
     this.winTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
+    this.livesText = ""
     this.livesTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
+
+    //Variables to score and lives 
+    this.score = 0
+    this.lives = 3  
   }
 
+  
   //Sets up the base state of the scene
   init (data) {
     this.cameras.main.setBackgroundColor("ffffff")
   }
 
+  
   //Loads data before processing / displaying it to the user
   preload () {
+
+    //Prints Game Scene to console 
     console.log("Game Scene")
 
-    //Loads images for background, ship and missile 
+    //Loads images for background, ship, missile, alien and button 
     this.load.image("starBackground", "./images/space.jpg")
     this.load.image("ship", "./images/angryBird.png")
     this.load.image("missile", "./images/missile.webp")
@@ -66,6 +83,7 @@ class GameScene extends Phaser.Scene {
   }
 
   create (data) {
+    
     //Displays background 
     this.background = this.add.image(0, 0, "starBackground").setScale(2)
     this.background.setOrigin(0, 0)
@@ -73,6 +91,7 @@ class GameScene extends Phaser.Scene {
     //Displays score
     this.scoreText = this.add.text(10, 10, "Score: " + this.score.toString(), this.scoreTextStyle)
 
+    //Displays lives
     this.livesText = this.add.text(700, 10, "Lives: " + this.lives.toString(), this.livesTextStyle)
 
     //Displays the ship
@@ -92,23 +111,42 @@ class GameScene extends Phaser.Scene {
     this.alienGroup = this.add.group()
     this.createAlien()
 
+    
     //Collisions between missiles and alien
     this.physics.add.collider(this.missileGroup, this.alienGroup, function (missileCollide, alienCollide) {
+
+      //Destroys alien and missle 
       alienCollide.destroy()
       missileCollide.destroy()
+
+      //Plays sound 
       this.sound.play("explosion")
+
+      //Displays score
       this.score = this.score + 1
       this.scoreText.setText("Score: " + this.score.toString())
+
+      //Creates 2 aliens when one is destroyes
       this.createAlien()
       this.createAlien()
+      
       //Win condition 
       if (this.score > 45) {
+        //Plays sound
         this.sound.play("winSound")
+
+        //Displays win text and restarts game 
         this.winText = this.add.text(1920 / 2, 1080 / 2, "You Win! Congratulations\nClick to play again", this.winTextStyle).setOrigin(0.5)
         this.winText.setInteractive({ useHandCursor: true })
         this.winText.on("pointerdown", () => this.scene.start("gameScene"))
+
+        //Stops the game
         this.physics.pause()
+
+        //Destroys the ship
         this.ship.destroy()
+
+        //Sets score to 0 at the end of the game 
         this.score = 0
       }
     }.bind(this))
