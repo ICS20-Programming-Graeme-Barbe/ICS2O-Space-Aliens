@@ -31,13 +31,13 @@ class GameScene extends Phaser.Scene {
     this.fireMissile = null
     this.homeButton = null
     this.score = 0
-    this.health = 3
-    this.healthText = null
+    this.lives = 3
+    this.livesText = ""
     this.scoreText = null
     this.scoreTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
     this.gameOverTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
     this.winTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
-    this.healthTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
+    this.livesTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
   }
 
   //Sets up the base state of the scene
@@ -61,7 +61,7 @@ class GameScene extends Phaser.Scene {
     this.load.audio("explosion", "./sounds/barrelExploding.wav")
     this.load.audio("bomb", "./sounds/bomb.wav")
     this.load.audio("buttonClick", "./sounds/buttonClicks.wav")
-    this.load.audio("loseSound", "./sound/loseSound.mp3")
+    this.load.audio("loseSound", "./sounds/loseSound.mp3")
     this.load.audio("winSound", "./sounds/winSound.wav")
   }
 
@@ -73,7 +73,7 @@ class GameScene extends Phaser.Scene {
     //Displays score
     this.scoreText = this.add.text(10, 10, "Score: " + this.score.toString(), this.scoreTextStyle)
 
-    this.heathText = this.add.text(700, 10, "Lives: " + this.health, this.healthTextStyle)
+    this.livesText = this.add.text(700, 10, "Lives: " + this.lives.toString(), this.livesTextStyle)
 
     //Displays the ship
     this.ship = this.physics.add.sprite(100, 1080 - 100, "ship").setScale(0.6)
@@ -98,9 +98,10 @@ class GameScene extends Phaser.Scene {
       missileCollide.destroy()
       this.sound.play("explosion")
       this.score = this.score + 1
-      this.scoreText.setText( "Score: " + this.score.toString())
+      this.scoreText.setText("Score: " + this.score.toString())
       this.createAlien()
       this.createAlien()
+      //Win condition 
       if (this.score > 45) {
         this.sound.play("winSound")
         this.winText = this.add.text(1920 / 2, 1080 / 2, "You Win! Congratulations\nClick to play again", this.winTextStyle).setOrigin(0.5)
@@ -118,19 +119,23 @@ class GameScene extends Phaser.Scene {
       alienCollide.destroy()
       this.createAlien()
       this.createAlien()
-      this.health = this.health - 1
+      shipCollide.body.velocity.x = 0
+      shipCollide.body.velocity.y = 0
+      this.lives -= 1
+      this.livesText.setText('Lives: ' + this.lives.toString(), this.livesTextStyle)
+      //Lose condition 
+      if (this.lives == 0) {
+        this.sound.play("loseSound")
+        this.physics.pause()
+        alienCollide.destroy()
+        shipCollide.destroy()
+        this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! \nClick to play again", this.gameOverTextStyle).setOrigin(0.5)
+        this.gameOverText.setInteractive({ useHandCursor: true})
+        this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
+        this.score = 0
+        this.lives = 3
+      }
     }.bind(this))
-
-    if (this.health = 0) {
-      this.sound.play("loseSound")
-      this.physics.pause()
-      alienCollide.destroy()
-      shipCollide.destroy()
-      this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! \nClick to play again", this.gameOverTextStyle).setOrigin(0.5)
-      this.gameOverText.setInteractive({ useHandCursor: true})
-      this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
-      this.score = 0
-    }
   }
 
   update (time, delta) {
