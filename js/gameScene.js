@@ -57,14 +57,9 @@ class GameScene extends Phaser.Scene {
     this.load.audio("laser", "./sounds/laser1.wav")
     this.load.audio("explosion", "./sounds/barrelExploding.wav")
     this.load.audio("bomb", "./sounds/bomb.wav")
-    this.load.audio("gameSceneMusic", "./sounds/gameSceneMusic.mp3")
   }
 
   create (data) {
-    //https://pixabay.com/music/search/genre/video%20games/
-    var audio = new Audio("./sounds/gameSceneMusic.mp3")
-    audio.play()
-    audio.loop = true
     //Displays background 
     this.background = this.add.image(0, 0, "starBackground").setScale(2)
     this.background.setOrigin(0, 0)
@@ -118,7 +113,6 @@ class GameScene extends Phaser.Scene {
       this.gameOverText.setInteractive({ useHandCursor: true})
       this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
       this.score = 0
-      audio.pause()
     }.bind(this))
   }
 
@@ -150,15 +144,15 @@ class GameScene extends Phaser.Scene {
     if (keyLeftObj.isDown === true) {
       this.ship.x -= 15
       if (this.ship.x < 0) {
-        this.ship.x = 0
+        this.ship.x = 1920
       }
     }
 
     //If statement to move the ship right if right arrow is down
     if (keyRightObj.isDown === true) {
       this.ship.x += 15
-      if (this.ship.x > 600) {
-        this.ship.x = 600 
+      if (this.ship.x > 1920) {
+        this.ship.x = 0
       }
     }
 

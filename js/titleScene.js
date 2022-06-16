@@ -12,7 +12,7 @@ class TitleScene extends Phaser.Scene {
 
     //Variables to hold different objects
     this.titleSceneBackgroundImage = null
-
+    this.startButton = null
     this.titleSceneText = null
     this.titleSceneTextStyle = { font: "90px Courier", fill: "#900603", align: "center", }
   }
@@ -26,24 +26,30 @@ class TitleScene extends Phaser.Scene {
   preload () {
     console.log("Title Scene")
     this.load.image("titleSceneBackground", "./images/titleScene.jpg")
+    this.load.image("startButton", "./images/startButton.png")
   }
 
   create (data) {
-
     //Displays title scene 
     this.titleSceneBackgroundImage = this.add.sprite(0, 0, "titleSceneBackground").setScale(2.75)
     this.titleSceneBackgroundImage.x = 1920 / 2
     this.titleSceneBackgroundImage.y = 1080 / 2
 
+    this.startButton = this.add.sprite(1920 / 2, 1080 / 2, "startButton")
+
+    this.startButton.setInteractive({ useHandCursor: true })
+    this.startButton.on("pointerdown", () => this.clickButton() )
+
     this.titleSceneText = this.add.text(1920 / 2, (1080 / 2) - 450, "Angry Birds in Space", this.titleSceneTextStyle).setOrigin(0.5)
   }
 
   update (time, delta) {
-    //If statement to switch to title screen only if enough time has passed
-    if (time > 5000) {
-      this.scene.switch("menuScene")
-    }
   }
+
+  clickButton() {
+    this.scene.switch("menuScene")
+  }
+  
 }
 
 export default TitleScene

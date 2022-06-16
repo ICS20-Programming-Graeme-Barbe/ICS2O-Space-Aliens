@@ -19,12 +19,12 @@ class SplashScene extends Phaser.Scene {
   //Loads data before processing / displaying it to the user 
   preload () {
     console.log("Splash Scene")
+    
     this.load.image("splashSceneBackground", "./images/splashSceneImage.png")
   }
 
   //Centers our image on the screen
-  create (data) {
-
+  create (data) {    
     //Displays splash scene
     this.splashSceneBackgroundImage = this.add.sprite(0, 0, "splashSceneBackground")
     this.splashSceneBackgroundImage.x = 1920 / 2

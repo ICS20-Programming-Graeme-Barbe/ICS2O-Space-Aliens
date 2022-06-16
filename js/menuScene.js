@@ -26,23 +26,30 @@ class MenuScene extends Phaser.Scene {
 
     //Loads images for background and buttons
     this.load.image("menuSceneBackgroundImage", "./images/background.jpg")
-    this.load.image('startButton', "./images/button.png")
+    this.load.image('playButton', "./images/button.png")
     this.load.image("instructionButton", "./images/instructions.png")
+
+    this.load.audio("gameSceneMusic", "./sounds/gameSceneMusic.mp3")
   }
 
   create (data) {
+    //https://pixabay.com/music/search/genre/video%20games/
+    var audio = ("./sounds/gameSceneMusic.mp3")
+    audio.play()
+    audio.loop = true
+    
     //Displays background 
     this.menuSceneBackgroundImage = this.add.sprite(0, 0, "menuSceneBackgroundImage").setScale(1.5)
     this.menuSceneBackgroundImage.x = 1920 / 2
     this.menuSceneBackgroundImage.y = 1080 / 2
 
     //Displays button
-    this.startButton = this.add.sprite((1920 / 2) + 700, (1820 / 2) + 25, "startButton").setScale(0.6)
+    this.playButton = this.add.sprite((1920 / 2) + 700, (1820 / 2) + 25, "playButton").setScale(0.6)
     this.instructionButton = this.add.sprite(375, 950, "instructionButton").setScale(0.7)
 
     //Allows button to be used when pressed 
-    this.startButton.setInteractive({ useHandCursor: true })
-    this.startButton.on("pointerdown", () => this.clickButton() )
+    this.playButton.setInteractive({ useHandCursor: true })
+    this.playButton.on("pointerdown", () => this.clickButton() )
     
     this.instructionButton.setInteractive({ useHandCursor: true })
     this.instructionButton.on("pointerdown", () => this.instructionsButton() )
@@ -59,6 +66,7 @@ class MenuScene extends Phaser.Scene {
 
   //Function to change to next scene when button is pressed 
   instructionsButton () {
+    audio.pause()
     this.scene.start("instructionScene")
   }
   

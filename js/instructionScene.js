@@ -34,7 +34,7 @@ class InstructionScene extends Phaser.Scene {
     this.load.image('BackButton', './images/BackButton.png')
   }
   
-  create (data) {
+  create (data) {    
    //Displays background
     this.instructionSceneBackgroundImage = this.add.sprite(0, 0, 'instructionSceneBackground').setScale(1)
     this.instructionSceneBackgroundImage.x = 1920 / 2
