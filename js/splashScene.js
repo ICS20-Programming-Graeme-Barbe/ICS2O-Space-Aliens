@@ -6,24 +6,32 @@
 // This is the Splash Scene
 
 class SplashScene extends Phaser.Scene {
-  //Creates a new object that get called with the key "splashScene"
   constructor () {
+
+     //Creates a new object that get called with the key "splashScene"
     super({ key: "splashScene" })
   }
 
+  
   //Sets up the base state of the scene
   init (data) {
+
+    //Sets color to white 
     this.cameras.main.setBackgroundColor("ffffff")
   }
 
+  
   //Loads data before processing / displaying it to the user 
   preload () {
+
+    //Prints splash scene to the console 
     console.log("Splash Scene")
-    
+
+    //Loads image 
     this.load.image("splashSceneBackground", "./images/splashSceneImage.png")
   }
 
-  //Centers our image on the screen
+
   create (data) {    
     //Displays splash scene
     this.splashSceneBackgroundImage = this.add.sprite(0, 0, "splashSceneBackground")
@@ -34,6 +42,8 @@ class SplashScene extends Phaser.Scene {
   update (time, delta) {
     //If statement to switch to title screen only if enough time has passed
     if (time > 3000) {
+
+      //Switches to the title scene
       this.scene.switch("titleScene")
     }
   }

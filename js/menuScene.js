@@ -6,24 +6,32 @@
 // This is the Menu Scene
 
 class MenuScene extends Phaser.Scene {
-  //Creates a new object that get called with the key "menueScene"
   constructor () {
+
+    //Creates a new object that get called with the key "menueScene"
     super({ key: "menuScene" })
 
-    //Variables to hold different objects
+    //Variables to images
     this.menuSceneBackgroundImage = null
     this.startButton = null;
 
+    //Variable for boolen audio loop 
     this.audioPlaying = false
   }
 
+  
   //Sets up the base state of the scene
   init (data) {
+
+    //Sets color to white 
     this.cameras.main.setBackgroundColor("ffffff")
   }
 
+  
   //Loads data before processing / displaying it to the user
   preload () {
+
+    //Prints menu scene to the console
     console.log("Menu Scene")
 
     //Loads images for background and buttons
@@ -31,18 +39,30 @@ class MenuScene extends Phaser.Scene {
     this.load.image('playButton', "./images/button.png")
     this.load.image("instructionButton", "./images/instructions.png")
 
+    //Loads sounds
     this.load.audio("gameSceneMusic", "./sounds/gameSceneMusic.mp3")
-
     this.load.audio("buttonClick", "./sounds/buttonClicks.wav")
   }
 
+  
   create (data) {
+
+    //If statement for audio
     if (this.audioPlaying === false) {
+
+      //Creates varible to play the music 
       var audio = new Audio("./sounds/gameSceneMusic.mp3")
+
+      //Plays the music
       audio.play()
+
+      //Loops the music 
       audio.loop = true
+
+      //Stops the if statement from running again
       this.audioPlaying = true
     }
+    
     //Displays background 
     this.menuSceneBackgroundImage = this.add.sprite(0, 0, "menuSceneBackgroundImage").setScale(1.5)
     this.menuSceneBackgroundImage.x = 1920 / 2
@@ -55,27 +75,36 @@ class MenuScene extends Phaser.Scene {
     //Allows button to be used when pressed 
     this.playButton.setInteractive({ useHandCursor: true })
     this.playButton.on("pointerdown", () => this.clickButton() )
-    
+
+    //Allows button to be used when pressed 
     this.instructionButton.setInteractive({ useHandCursor: true })
     this.instructionButton.on("pointerdown", () => this.instructionsButton() )
   }
 
+  
   update (time, delta) {
-    
   }
+
   
  //Function to change to next scene when button is pressed 
   clickButton () {
+
+    //Plays sound
     this.sound.play("buttonClick")
+
+    //Starts game scene
     this.scene.start("gameScene")
   }
 
   //Function to change to next scene when button is pressed 
   instructionsButton () {
+
+    //Plays sound
     this.sound.play("buttonClick")
+
+    //Starts instruction scene
     this.scene.start("instructionScene")
   }
-  
 }
 
 export default MenuScene

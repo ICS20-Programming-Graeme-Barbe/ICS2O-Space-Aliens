@@ -15,8 +15,14 @@ class GameScene extends Phaser.Scene {
 
     //Randomly generates alien y volocity
     let alienYVelocity = Math.floor(Math.random() * 50) + 100
+
+    //Adds a negative half the time to the alien negative velocity 
     alienYVelocity *= Math.round(Math.random()) ? 1 : -1
+
+    //Displays the alien
     const anAlien = this.physics.add.sprite(1920, alienYLocation, "alien")
+
+    //Alien velocity
     anAlien.body.velocity.x = -250
     anAlien.body.velocity.y = alienYVelocity
     
@@ -29,9 +35,11 @@ class GameScene extends Phaser.Scene {
     //Makes every alien spawned part of the alien group 
     this.alienGroup.add(anAlien)
   }
+
   
-  //Creates a new object that get called with the key "gameScene"
   constructor () {
+
+    //Creates a new object that get called with the key "gameScene"
     super({ key: "gameScene" })
 
     //Variables to hold images
@@ -48,7 +56,7 @@ class GameScene extends Phaser.Scene {
     this.livesText = ""
     this.livesTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
 
-    //Variables to score and lives 
+    //Variables for score and lives 
     this.score = 0
     this.lives = 3  
   }
@@ -56,6 +64,8 @@ class GameScene extends Phaser.Scene {
   
   //Sets up the base state of the scene
   init (data) {
+
+    //Sets color to white
     this.cameras.main.setBackgroundColor("ffffff")
   }
 
@@ -82,6 +92,7 @@ class GameScene extends Phaser.Scene {
     this.load.audio("winSound", "./sounds/winSound.wav")
   }
 
+  
   create (data) {
     
     //Displays background 
@@ -135,8 +146,10 @@ class GameScene extends Phaser.Scene {
         //Plays sound
         this.sound.play("winSound")
 
-        //Displays win text and restarts game 
+        //Displays win text
         this.winText = this.add.text(1920 / 2, 1080 / 2, "You Win! Congratulations\nClick to play again", this.winTextStyle).setOrigin(0.5)
+
+        //Allows win text to restart the game 
         this.winText.setInteractive({ useHandCursor: true })
         this.winText.on("pointerdown", () => this.scene.start("gameScene"))
 
@@ -151,31 +164,58 @@ class GameScene extends Phaser.Scene {
       }
     }.bind(this))
 
+    
     //Collision between alien and the ship
     this.physics.add.collider(this.ship, this.alienGroup, function(shipCollide, alienCollide) {
+
+      //Plays sound
       this.sound.play("bomb")
+
+      //Destroys alien on collision
       alienCollide.destroy()
+
+      //Creates 2 new aliens 
       this.createAlien()
       this.createAlien()
+
+      //Sets the ship velocity to 0
       shipCollide.body.velocity.x = 0
       shipCollide.body.velocity.y = 0
+
+      //Removes one life 
       this.lives -= 1
+
+      //Displays lives 
       this.livesText.setText('Lives: ' + this.lives.toString(), this.livesTextStyle)
+      
       //Lose condition 
       if (this.lives == 0) {
+
+        //Plays sound 
         this.sound.play("loseSound")
+
+        //Stops the game
         this.physics.pause()
+
+        //Destroys the alien and the ship
         alienCollide.destroy()
         shipCollide.destroy()
+
+        //Displays game over text
         this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! \nClick to play again", this.gameOverTextStyle).setOrigin(0.5)
+
+        //Allows game over text to reastart the game
         this.gameOverText.setInteractive({ useHandCursor: true})
         this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
+
+        //Sets score to 0 and lives to 3
         this.score = 0
         this.lives = 3
       }
     }.bind(this))
   }
 
+  
   update (time, delta) {
     //Const for key inputs
     const keyUpObj = this.input.keyboard.addKey("UP")
@@ -187,6 +227,8 @@ class GameScene extends Phaser.Scene {
     //If statement to move the ship up if up arrow is down
     if (keyUpObj.isDown === true) {
       this.ship.y -= 15
+      
+      //If statement to warp ship
       if (this.ship.y < 0) {
         this.ship.y = 1080
       }
@@ -195,6 +237,8 @@ class GameScene extends Phaser.Scene {
     //If statement to move the ship down if down arrow is down
     if (keyDownObj.isDown === true) {
       this.ship.y += 15
+
+      //If statement to warp ship
       if (this.ship.y > 1080) {
         this.ship.y = 0
       }
@@ -203,6 +247,8 @@ class GameScene extends Phaser.Scene {
     //If statement to move the ship left if left arrow is down
     if (keyLeftObj.isDown === true) {
       this.ship.x -= 15
+
+      //If statement to warp ship
       if (this.ship.x < 0) {
         this.ship.x = 1920
       }
@@ -211,6 +257,8 @@ class GameScene extends Phaser.Scene {
     //If statement to move the ship right if right arrow is down
     if (keyRightObj.isDown === true) {
       this.ship.x += 15
+
+      //If statement to warp ship
       if (this.ship.x > 1920) {
         this.ship.x = 0
       }
@@ -220,12 +268,19 @@ class GameScene extends Phaser.Scene {
     if (keySpaceObj.isDown === true) {
       if (this.fireMissile === false) {
         this.fireMissile = true
+
+        //Displays missle 
         const aNewMissile = this.physics.add.sprite(this.ship.x + 70, this.ship.y + 10, "missile").setScale(0.8)
+
+        //Adds missile to the missile group 
         this.missileGroup.add(aNewMissile)
+
+        //Plays sound
         this.sound.play("laser")
       }
     }
 
+    
     //If statement to fire missile if space is pressed and unpressed 
     if (keySpaceObj.isUp === true) {
       this.fireMissile = false
@@ -234,21 +289,39 @@ class GameScene extends Phaser.Scene {
     //If statement to move missiles 
     this.missileGroup.children.each(function (item) {
       item.x = item.x + 15
+
+      //If statement to destroy the missiles
       if (item.x > 1920)
         item.destroy()
     })    
 
+
+    
     this.alienGroup.children.each(function (item1) {
+
+      //Id statement for warping 
       if ((item1.x < 0) || (item1.y < 0) || (item1.y > 1080)) {
+
+        //Sets alien's x-coord
         item1.x = 2000
+
+        //Randomizes the aliens y-coord
         let alienYCoord = Math.floor(Math.random() * 1080) + 1
+
+        //Sets the alien's y-coord
         item1.y = alienYCoord
 
-        
+        //Randomizes alien's velocity
         let alienYSpeed = Math.floor(Math.random() * 50) + 100
+
+        //Adds a negative half the time to the alien's velocity
         alienYSpeed *= Math.round(Math.random()) ? 1 : -1
+
+        //Sets the alien's velocity
         item1.body.velocity.x = -250
         item1.body.velocity.y = alienYSpeed
+
+        //Randomly sets the alien's velocity to 0
         let randNumb = Math.floor(Math.random() * 20) + 1
         if (randNumb > 15) {
           item1.body.velocity.y = 0
@@ -257,9 +330,17 @@ class GameScene extends Phaser.Scene {
     })
   }
 
+
+  //Function for the home button
   clickButton () {
+
+    //Plays sound
     this.sound.play("buttonClick")
+
+    //Sets the score to 0
     this.score = 0
+
+    //Starts the menu scene
     this.scene.start('menuScene')
   }
 }
