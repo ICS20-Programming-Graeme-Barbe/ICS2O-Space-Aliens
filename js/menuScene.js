@@ -13,6 +13,8 @@ class MenuScene extends Phaser.Scene {
     //Variables to hold different objects
     this.menuSceneBackgroundImage = null
     this.startButton = null;
+
+    this.audioPlaying = false
   }
 
   //Sets up the base state of the scene
@@ -30,14 +32,17 @@ class MenuScene extends Phaser.Scene {
     this.load.image("instructionButton", "./images/instructions.png")
 
     this.load.audio("gameSceneMusic", "./sounds/gameSceneMusic.mp3")
+
+    this.load.audio("buttonClick", "./sounds/buttonClicks.wav")
   }
 
   create (data) {
-    //https://pixabay.com/music/search/genre/video%20games/
-    var audio = ("./sounds/gameSceneMusic.mp3")
-    audio.play()
-    audio.loop = true
-    
+    if (this.audioPlaying === false) {
+      var audio = new Audio("./sounds/gameSceneMusic.mp3")
+      audio.play()
+      audio.loop = true
+      this.audioPlaying = true
+    }
     //Displays background 
     this.menuSceneBackgroundImage = this.add.sprite(0, 0, "menuSceneBackgroundImage").setScale(1.5)
     this.menuSceneBackgroundImage.x = 1920 / 2
@@ -61,12 +66,13 @@ class MenuScene extends Phaser.Scene {
   
  //Function to change to next scene when button is pressed 
   clickButton () {
+    this.sound.play("buttonClick")
     this.scene.start("gameScene")
   }
 
   //Function to change to next scene when button is pressed 
   instructionsButton () {
-    audio.pause()
+    this.sound.play("buttonClick")
     this.scene.start("instructionScene")
   }
   

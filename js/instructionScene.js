@@ -32,6 +32,8 @@ class InstructionScene extends Phaser.Scene {
     //Loads background and back button
     this.load.image('instructionSceneBackground', './images/instructionScene.jpg')
     this.load.image('BackButton', './images/BackButton.png')
+
+    this.load.audio("buttonClick", "./sounds/buttonClicks.wav")
   }
   
   create (data) {    
@@ -57,6 +59,7 @@ class InstructionScene extends Phaser.Scene {
 
   //Function for back button clicked 
   clickButtonBack () {
+    this.sound.play("buttonClick")
     this.scene.start('menuScene')
   }
 }

@@ -31,10 +31,13 @@ class GameScene extends Phaser.Scene {
     this.fireMissile = null
     this.homeButton = null
     this.score = 0
+    this.health = 3
+    this.healthText = null
     this.scoreText = null
     this.scoreTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
     this.gameOverTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
     this.winTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
+    this.healthTextStyle = { font: "50px Arial", fill: "#900603", align: "center" }
   }
 
   //Sets up the base state of the scene
@@ -57,6 +60,9 @@ class GameScene extends Phaser.Scene {
     this.load.audio("laser", "./sounds/laser1.wav")
     this.load.audio("explosion", "./sounds/barrelExploding.wav")
     this.load.audio("bomb", "./sounds/bomb.wav")
+    this.load.audio("buttonClick", "./sounds/buttonClicks.wav")
+    this.load.audio("loseSound", "./sound/loseSound.mp3")
+    this.load.audio("winSound", "./sounds/winSound.wav")
   }
 
   create (data) {
@@ -66,6 +72,8 @@ class GameScene extends Phaser.Scene {
     
     //Displays score
     this.scoreText = this.add.text(10, 10, "Score: " + this.score.toString(), this.scoreTextStyle)
+
+    this.heathText = this.add.text(700, 10, "Lives: " + this.health, this.healthTextStyle)
 
     //Displays the ship
     this.ship = this.physics.add.sprite(100, 1080 - 100, "ship").setScale(0.6)
@@ -94,6 +102,7 @@ class GameScene extends Phaser.Scene {
       this.createAlien()
       this.createAlien()
       if (this.score > 45) {
+        this.sound.play("winSound")
         this.winText = this.add.text(1920 / 2, 1080 / 2, "You Win! Congratulations\nClick to play again", this.winTextStyle).setOrigin(0.5)
         this.winText.setInteractive({ useHandCursor: true })
         this.winText.on("pointerdown", () => this.scene.start("gameScene"))
@@ -106,6 +115,14 @@ class GameScene extends Phaser.Scene {
     //Collision between alien and the ship
     this.physics.add.collider(this.ship, this.alienGroup, function(shipCollide, alienCollide) {
       this.sound.play("bomb")
+      alienCollide.destroy()
+      this.createAlien()
+      this.createAlien()
+      this.health = this.health - 1
+    }.bind(this))
+
+    if (this.health = 0) {
+      this.sound.play("loseSound")
       this.physics.pause()
       alienCollide.destroy()
       shipCollide.destroy()
@@ -113,7 +130,7 @@ class GameScene extends Phaser.Scene {
       this.gameOverText.setInteractive({ useHandCursor: true})
       this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
       this.score = 0
-    }.bind(this))
+    }
   }
 
   update (time, delta) {
@@ -198,6 +215,7 @@ class GameScene extends Phaser.Scene {
   }
 
   clickButton () {
+    this.sound.play("buttonClick")
     this.score = 0
     this.scene.start('menuScene')
   }

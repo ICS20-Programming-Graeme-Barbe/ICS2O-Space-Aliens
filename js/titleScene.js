@@ -27,6 +27,8 @@ class TitleScene extends Phaser.Scene {
     console.log("Title Scene")
     this.load.image("titleSceneBackground", "./images/titleScene.jpg")
     this.load.image("startButton", "./images/startButton.png")
+
+    this.load.audio("buttonClick", "./sounds/buttonClicks.wav")
   }
 
   create (data) {
@@ -47,6 +49,7 @@ class TitleScene extends Phaser.Scene {
   }
 
   clickButton() {
+    this.sound.play("buttonClick")
     this.scene.switch("menuScene")
   }
   
