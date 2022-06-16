@@ -84,7 +84,7 @@ class GameScene extends Phaser.Scene {
     this.load.image("homeButton", "./images/homeButton.png")
 
     //Loads sounds
-    this.load.audio("laser", "./sounds/laser1.wav")
+    this.load.audio("laser", "./sounds/lazer.mp3")
     this.load.audio("explosion", "./sounds/barrelExploding.wav")
     this.load.audio("bomb", "./sounds/bomb.wav")
     this.load.audio("buttonClick", "./sounds/buttonClicks.wav")
