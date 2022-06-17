@@ -142,7 +142,7 @@ class GameScene extends Phaser.Scene {
       this.createAlien()
       
       //Win condition 
-      if (this.score > 45) {
+      if (this.score == 45) {
         //Plays sound
         this.sound.play("winSound")
 
@@ -161,6 +161,7 @@ class GameScene extends Phaser.Scene {
 
         //Sets score to 0 at the end of the game 
         this.score = 0
+        this.lives = 0
       }
     }.bind(this))
 
