@@ -13,7 +13,7 @@ class GameScene extends Phaser.Scene {
     //Randomly generates alien y location 
     const alienYLocation = Math.floor(Math.random() * 1080) + 1
 
-    //Randomly generates alien y volocity
+    //Randomly generates alien y velocity
     let alienYVelocity = Math.floor(Math.random() * 50) + 100
 
     //Adds a negative half the time to the alien negative velocity 
@@ -269,7 +269,7 @@ class GameScene extends Phaser.Scene {
       if (this.fireMissile === false) {
         this.fireMissile = true
 
-        //Displays missle 
+        //Displays missile 
         const aNewMissile = this.physics.add.sprite(this.ship.x + 70, this.ship.y + 10, "missile").setScale(0.8)
 
         //Adds missile to the missile group 
