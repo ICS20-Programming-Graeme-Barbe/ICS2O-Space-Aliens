@@ -16,7 +16,7 @@ class GameScene extends Phaser.Scene {
     //Randomly generates alien y velocity
     let alienYVelocity = Math.floor(Math.random() * 50) + 100
 
-    //Adds a negative half the time to the alien negative velocity 
+    //Adds a negative half the time to the alien velocity 
     alienYVelocity *= Math.round(Math.random()) ? 1 : -1
 
     //Displays the alien
@@ -204,7 +204,7 @@ class GameScene extends Phaser.Scene {
         //Displays game over text
         this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! \nClick to play again", this.gameOverTextStyle).setOrigin(0.5)
 
-        //Allows game over text to reastart the game
+        //Allows game over text to restart the game
         this.gameOverText.setInteractive({ useHandCursor: true})
         this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
 
@@ -299,7 +299,7 @@ class GameScene extends Phaser.Scene {
     
     this.alienGroup.children.each(function (item1) {
 
-      //Id statement for warping 
+      //If statement for warping 
       if ((item1.x < 0) || (item1.y < 0) || (item1.y > 1080)) {
 
         //Sets alien's x-coord
@@ -339,6 +339,7 @@ class GameScene extends Phaser.Scene {
 
     //Sets the score to 0
     this.score = 0
+    this.lives = 3
 
     //Starts the menu scene
     this.scene.start('menuScene')
